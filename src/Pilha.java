@@ -1,3 +1,4 @@
+
 import java.util.NoSuchElementException;
 
 public class Pilha<E> {
@@ -53,8 +54,27 @@ public class Pilha<E> {
 	 * @throws IllegalArgumentException se a pilha não contém numItens elementos.
 	 */
 	public Pilha<E> subPilha(int numItens) {
-		
-		// TODO
-		return null;
+
+		if (numItens < 0) {
+			throw new IllegalArgumentException("O número de itens não pode ser negativo!");
+		}
+
+		Pilha<E> auxiliar = new Pilha<E>();
+		Celula<E> atual = topo;
+
+		for (int i = 0; i < numItens; i++) {
+			if (atual == fundo) {
+				throw new IllegalArgumentException("A pilha não contém " + numItens + " elementos!");
+			}
+			auxiliar.empilhar(atual.getItem());
+			atual = atual.getProximo();
+		}
+
+		Pilha<E> subPilha = new Pilha<E>();
+		while (!auxiliar.vazia()) {
+			subPilha.empilhar(auxiliar.desempilhar());
+		}
+
+		return subPilha;
 	}
 }

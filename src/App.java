@@ -209,13 +209,22 @@ public class App {
      * @param pedido O pedido que deve ser finalizado.
      */
     public static void finalizarPedido(Pedido pedido) {
-    	
-    	// TODO
+
+    	cabecalho();
+
+    	if (pedido == null) {
+    		System.out.println("Não há pedido em aberto. Inicie um novo pedido antes de finalizá-lo.");
+    		return;
+    	}
+
+    	pilhaPedidos.empilhar(pedido);
+    	System.out.println("Pedido finalizado e armazenado com sucesso!");
+    	System.out.println(pedido);
     }
-    
+
     public static void listarProdutosPedidosRecentes() {
     	
-    	// TODO
+    	
     }
     
 	public static void main(String[] args) {
@@ -236,7 +245,10 @@ public class App {
                 case 2 -> mostrarProduto(localizarProduto());
                 case 3 -> mostrarProduto(localizarProdutoDescricao());
                 case 4 -> pedido = iniciarPedido();
-                case 5 -> finalizarPedido(pedido);
+                case 5 -> {
+                    finalizarPedido(pedido);
+                    pedido = null; 
+                }
                 case 6 -> listarProdutosPedidosRecentes();
             }
             pausa();
